@@ -1,7 +1,7 @@
 ---
 title: In-Band SCONE Reporting over QUIC
 abbrev: scone-echo
-category: std 
+category: std
 
 docname: draft-mduke-scone-scone-echo-latest
 submissiontype: IETF
@@ -116,7 +116,7 @@ not indicate such a frame can be sent, it terminates the connection with
 PROTOCOL_VIOLATION. Otherwise, if the frame passes validity checks, it passes
 the information up to the application for further action.
 
-There are no changes to SCONE Network Element behavior or the SCONE packet 
+There are no changes to SCONE Network Element behavior or the SCONE packet
 format from {{SCONE}}.
 
 # The SCONE_ECHO Frame {#scone-echo}
