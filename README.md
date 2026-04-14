@@ -1,8 +1,8 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# TODO - Your title
+# scone-echo
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "In-Band SCONE Reporting over QUIC"
 
 * [Editor's Copy](https://martinduke.github.io/scone-echo/#go.draft-mduke-scone-scone-echo.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-mduke-scone-scone-echo)
