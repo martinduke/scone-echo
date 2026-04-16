@@ -90,7 +90,7 @@ each direction, sending SCONE is authorized by the new transport parameters or
 scone_supported, never both.
 
 When an endpoint receives a valid SCONE packet that has been authorized by the
-SCONE echo parameters, it sends a SCONE_ECHO QUIC frame in response and sends no 
+SCONE echo parameters, it sends a SCONE_ECHO QUIC frame in response and sends no
 signal to its local application layer.
 
 Upon receipt of a valid SCONE_ECHO packet, the SCONE sender reports the bandwidth
