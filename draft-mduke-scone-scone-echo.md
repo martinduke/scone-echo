@@ -41,7 +41,7 @@ estimates back to the sender via unspecified application-layer messages. In some
 cases, a peer might have SCONE receive capability at the QUIC layer but not
 implement the necessary application level functionality. A new QUIC frame that
 directly reports the contents of received SCONE packets can address these use
-cases.
+cases. There are no changes in the interaction with SCONE Network Elements.
 
 --- middle
 
@@ -83,41 +83,22 @@ layer.
 
 # Overview {#overview}
 
-Both endpoints send the scone_echo_supported transport parameter to indicate
-support for the frame. If one endpoint does not, no SCONE_ECHO frames may be
-sent on the connection in either direction.
+The use of SCONE_ECHO frames is negotiated by new transport parameters
+separately in each direction. This negotiation is an alternate means of allowing
+the sending of SCONE packets, in addition to scone_supported from {{SCONE}}. In
+each direction, sending SCONE is authorized by the new transport parameters or
+scone_supported, never both.
 
-Endpoints SHOULD also include the scone_supported transport parameter from
-{{SCONE}} if an application has indicated it supports SCONE. If an endpoint
-sends this parameter, it MUST NOT send SCONE_ECHO frames regardless of the
-presence of a scone_echo_supported transport parameter. It might receive such
-frames, however, if the peer did not send scone_supported.
+When an endpoint receives a valid SCONE packet that has been authorized by the
+SCONE echo parameters, it sends a SCONE_ECHO QUIC frame in response and sends no 
+signal to its local application layer.
 
-Endpoints can send SCONE packets if the peer sends scone_supported, OR if both
-endpoints send scone_echo_supported. If the peer only sent scone_echo_supported,
-an endpoint MUST NOT send SCONE packets if its application cannot accept the
-resulting Throughput Advice.
-
-An endpoint responds to a SCONE packet based on the transport parameters it
-sent, assuming the SCONE packet is coalesced with a succesfully decrypted QUIC
-packet.
-
-* If it sent scone_supported, it passes the result to its application and
-it takes no further action at the QUIC layer without explicit application
-instruction.
-
-* If it sent scone_echo_supported but not scone_supported, it responds with a
-SCONE_ECHO frame.
-
-* If it sent neither, it ignores the SCONE packet.
-
-When an endpoint receives a SCONE_ECHO frame and the transport parameters do
-not indicate such a frame can be sent, it terminates the connection with
-PROTOCOL_VIOLATION. Otherwise, if the frame passes validity checks, it passes
-the information up to the application for further action.
+Upon receipt of a valid SCONE_ECHO packet, the SCONE sender reports the bandwidth
+advice to its local application layer. 
 
 There are no changes to SCONE Network Element behavior or the SCONE packet
-format from {{SCONE}}.
+format from {{SCONE}}. SCONE packets are still only valid if another QUIC packet
+in the UDP datagram is successfully decrypted.
 
 # The SCONE_ECHO Frame {#scone-echo}
 
@@ -154,33 +135,43 @@ to a packet number in any packet number space.
 
 # Negotiating SCONE Echo
 
-Support for this extension is indicated by the scone_echo_supported transport
-parameter (0xff00219f). Both endpoints must send this parameter to allow
-SCONE_ECHO frames in either direction. SCONE_ECHO frames MUST NOT be sent by
-an endpoint that also sends the scone_supported transport parameter.
+This document specifies two new transport parameters: scone_echo_send and
+scone_echo_receive.
 
-scone_echo_supported MUST be empty. If it is not empty, it MUST be treated as
-a connection error of type TRANSPORT_PARAMETER_ERROR.
+Endpoints send scone_echo_send if and only if a local application has not
+requested bandwidth advice from incoming SCONE packets (in which case an
+endpoint would instead send scone_supported from SCONE). An endpoint MUST
+NOT send both scone_echo_send and scone_supported; doing so is a
+TRANSPORT_PARAMETER_ERROR.
 
-This transport parameter is valid for QUIC Version 1 {{?RFC9000}}, QUIC
+Endpoints send scone_echo_receive when a local application requests sending
+of SCONE packets. It indicates the ability to process SCONE_ECHO frames.
+
+Endpoints MUST NOT send SCONE packets unless the peer has sent either
+scone_supported or scone_echo_send.
+
+Endpoints MUST NOT send SCONE_ECHO frames unless the peer has sent
+scone_echo_receive.
+
+scone_echo_send and scone_echo_receive MUST be empty. If not empty, it MUST be
+treated as a connection error of type TRANSPORT_PARAMETER_ERROR.
+
+These transport parameters are valid for QUIC Version 1 {{?RFC9000}}, QUIC
 Version 2 {{?RFC9369}}, and any other version that supports SCONE as outlined
 in Section 6 of {{SCONE}}.
 
-This transport parameter MUST NOT be stored for 0-RTT purposes.
+These transport parameters MUST NOT be stored for 0-RTT purposes.
 
 ## The SCONE indicator
 
-A client that sends the scone_echo_supported transport parameter MUST send the
-SCONE Indicator as described in Section 6.1 of {{SCONE}}, whether or not it also
-sends scone_supported. Its semantic meaning remains unchanged.
+A client that sends the scone_echo_send or scone_echo_receive transport
+parameter MUST send the SCONE Indicator as described in Section 6.1 of
+{{SCONE}}, whether or not it also sends scone_supported. Its semantic meaning
+remains unchanged.
 
 # Security Considerations
 
 The security considerations in Section 9 of {{SCONE}} apply.
-
-Both sides have to send the transport parameter. If only the receiver has to
-send it, and an attacker injects a SCONE packet, that will trigger a
-SCONE_ECHO frame that will terminate the connection.
 
 # Privacy Considerations
 
@@ -194,7 +185,7 @@ also further distances consent from the user.
 
 # IANA Considerations
 
-## scone_echo_supported Transport Parameter
+## scone_echo_send Transport Parameter
 
 The document registers the scone_echo_supported transport parameter in the "QUIC
 Transport Parameters" registry maintained at
@@ -202,10 +193,41 @@ https://www.iana.org/assignments/quic, following the guidance from Section 22.3
 of {{QUIC}}.
 
 Value:
-0xff00219f
+0xff002200
 
 Parameter Name:
-scone_echo_supported
+scone_echo_send
+
+Status:
+Provisional
+
+Specification:
+This document
+
+Date:
+This date
+
+Change Controller:
+IETF (iesg@ietf.org)
+
+Contact:
+QUIC Working Group (quic@ietf.org)
+
+Notes:
+(none)
+
+## scone_echo_receive Transport Parameter
+
+The document registers the scone_echo_supported transport parameter in the "QUIC
+Transport Parameters" registry maintained at
+https://www.iana.org/assignments/quic, following the guidance from Section 22.3
+of {{QUIC}}.
+
+Value:
+0xff002201
+
+Parameter Name:
+scone_echo_receive
 
 Status:
 Provisional
