@@ -148,7 +148,8 @@ Endpoints send scone_echo_receive when a local application requests sending
 of SCONE packets. It indicates the ability to process SCONE_ECHO frames.
 
 Endpoints MUST NOT send SCONE packets unless the peer has sent either
-scone_supported or scone_echo_send.
+scone_supported or scone_echo_send. If scone_echo_send, the endpoint MUST
+also have sent scone_echo_receive.
 
 Endpoints MUST NOT send SCONE_ECHO frames unless the peer has sent
 scone_echo_receive.
