@@ -94,7 +94,7 @@ SCONE echo parameters, it sends a SCONE_ECHO QUIC frame in response and sends no
 signal to its local application layer.
 
 Upon receipt of a valid SCONE_ECHO packet, the SCONE sender reports the bandwidth
-advice to its local application layer. 
+advice to its local application layer.
 
 There are no changes to SCONE Network Element behavior or the SCONE packet
 format from {{SCONE}}. SCONE packets are still only valid if another QUIC packet
