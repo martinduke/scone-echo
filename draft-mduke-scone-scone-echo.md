@@ -188,7 +188,7 @@ also further distances consent from the user.
 
 ## scone_echo_send Transport Parameter
 
-The document registers the scone_echo_supported transport parameter in the "QUIC
+The document registers the scone_echo_send transport parameter in the "QUIC
 Transport Parameters" registry maintained at
 https://www.iana.org/assignments/quic, following the guidance from Section 22.3
 of {{QUIC}}.
@@ -219,7 +219,7 @@ Notes:
 
 ## scone_echo_receive Transport Parameter
 
-The document registers the scone_echo_supported transport parameter in the "QUIC
+The document registers the scone_echo_receive transport parameter in the "QUIC
 Transport Parameters" registry maintained at
 https://www.iana.org/assignments/quic, following the guidance from Section 22.3
 of {{QUIC}}.
