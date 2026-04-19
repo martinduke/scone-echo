@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-16T02:27:31.521068+00:00",
+  "timestamp": "2026-04-19T02:28:02.746027+00:00",
   "repo": "martinduke/scone-echo",
   "labels": [
     {
@@ -50,5 +50,147 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOSCpQkc7TAR31",
+      "title": "Redesign transport parameters to be clearer",
+      "url": "https://github.com/martinduke/scone-echo/pull/1",
+      "state": "OPEN",
+      "author": "martinduke",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Ian said the transport parameter stuff was confusing, and he's right.\r\n\r\nSo I split the transport parameters in two and totally rewrote the text.",
+      "createdAt": "2026-04-16T14:46:59Z",
+      "updatedAt": "2026-04-18T02:48:01Z",
+      "baseRepository": "martinduke/scone-echo",
+      "baseRefName": "main",
+      "baseRefOid": "a82ab2e937c65e0b406d612203a59bb6d6a7f75d",
+      "headRepository": "martinduke/scone-echo",
+      "headRefName": "two-tps",
+      "headRefOid": "fcf1beff8f95d09618a38fd1a277e39a35ad0473",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOSCpQkc71roK2",
+          "commit": {
+            "abbreviatedOid": "4e2f041"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-04-16T14:47:27Z",
+          "updatedAt": "2026-04-16T14:47:28Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "````suggestion\nSCONE echo parameters, it sends a SCONE_ECHO QUIC frame in response and sends no\n````",
+              "createdAt": "2026-04-16T14:47:27Z",
+              "updatedAt": "2026-04-16T14:47:28Z"
+            },
+            {
+              "originalPosition": 54,
+              "body": "````suggestion\nadvice to its local application layer.\n````",
+              "createdAt": "2026-04-16T14:47:27Z",
+              "updatedAt": "2026-04-16T14:47:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOSCpQkc71rq5X",
+          "commit": {
+            "abbreviatedOid": "fe44dca"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-04-16T14:48:44Z",
+          "updatedAt": "2026-04-16T14:48:45Z",
+          "comments": [
+            {
+              "originalPosition": 28,
+              "body": "````suggestion\nSCONE echo parameters, it sends a SCONE_ECHO QUIC frame in response and sends no\n````",
+              "createdAt": "2026-04-16T14:48:44Z",
+              "updatedAt": "2026-04-16T14:48:44Z"
+            },
+            {
+              "originalPosition": 54,
+              "body": "````suggestion\nadvice to its local application layer.\n````",
+              "createdAt": "2026-04-16T14:48:44Z",
+              "updatedAt": "2026-04-16T14:48:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOSCpQkc72W7yU",
+          "commit": {
+            "abbreviatedOid": "fcf1bef"
+          },
+          "author": "ianswett",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "I think linking this to what the app exposes is making this confusing.  I'd prefer to focus on what happens on the wire and how it's negotiated.",
+          "createdAt": "2026-04-18T01:50:35Z",
+          "updatedAt": "2026-04-18T02:48:01Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\nThe use of the SCONE_ECHO frame is negotiated by new transport parameters\n```",
+              "createdAt": "2026-04-18T01:50:35Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\nseparately in each direction. This negotiation is an alternate means of negotiating the\nuse of SCONE packets, in addition to scone_supported from {{SCONE}}. In\n```",
+              "createdAt": "2026-04-18T01:53:00Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            },
+            {
+              "originalPosition": 20,
+              "body": "I don't understand what \"In each direction,\" means?\n\nMaybe \"For a given direction,\"?\n\n",
+              "createdAt": "2026-04-18T01:54:32Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            },
+            {
+              "originalPosition": 29,
+              "body": "I don't think it's necessary to suppress the signal to the application layer.",
+              "createdAt": "2026-04-18T01:55:36Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\nWhen an endpoint receives a valid SCONE packet and SCONE echo was negotiated\nin that direction, it sends a SCONE_ECHO QUIC frame in response and sends no\n```",
+              "createdAt": "2026-04-18T01:56:34Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            },
+            {
+              "originalPosition": 79,
+              "body": "Why?",
+              "createdAt": "2026-04-18T02:43:13Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            },
+            {
+              "originalPosition": 88,
+              "body": "In that case, one TP with a bool value would be better.",
+              "createdAt": "2026-04-18T02:44:23Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            },
+            {
+              "originalPosition": 76,
+              "body": "I think linking it to app behavior is confusing.  It's better to talk about what's on the wire.  Implementations can decide when and how to expose the SCONE signal.",
+              "createdAt": "2026-04-18T02:47:17Z",
+              "updatedAt": "2026-04-18T02:48:01Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
