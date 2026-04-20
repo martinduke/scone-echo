@@ -1270,8 +1270,8 @@ separately in each direction. This negotiation is an alternate means of negotiat
 use of SCONE packets, in addition to scone_supported from <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span>. In
 each direction, sending SCONE is authorized by the new transport parameters or
 scone_supported, never both.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">When an endpoint receives a valid SCONE packet that has been authorized by the
-SCONE echo parameters, it sends a SCONE_ECHO QUIC frame in response and sends no
+<p id="section-3-2">When an endpoint receives a valid SCONE packet and SCONE echo was negotiated
+in that direction, it sends a SCONE_ECHO QUIC frame in response and sends no
 signal to its local application layer.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">Upon receipt of a valid SCONE_ECHO packet, the SCONE sender reports the bandwidth
 advice to its local application layer.<a href="#section-3-3" class="pilcrow">¶</a></p>
