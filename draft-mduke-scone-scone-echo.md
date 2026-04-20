@@ -83,7 +83,7 @@ layer.
 
 # Overview {#overview}
 
-The use of SCONE_ECHO frames is negotiated by new transport parameters
+The use of the SCONE_ECHO frame is negotiated by new transport parameters
 separately in each direction. This negotiation is an alternate means of negotiating the
 use of SCONE packets, in addition to scone_supported from {{SCONE}}. In
 each direction, sending SCONE is authorized by the new transport parameters or
