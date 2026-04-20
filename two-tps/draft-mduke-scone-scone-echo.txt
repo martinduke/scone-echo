@@ -4,8 +4,8 @@
 
 Standard Communication with Network Elements                     M. Duke
 Internet-Draft                                                    Google
-Intended status: Standards Track                           16 April 2026
-Expires: 18 October 2026
+Intended status: Standards Track                           20 April 2026
+Expires: 22 October 2026
 
 
                    In-Band SCONE Reporting over QUIC
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 18 October 2026.
+   This Internet-Draft will expire on 22 October 2026.
 
 Copyright Notice
 
@@ -140,7 +140,7 @@ Table of Contents
 
    The use of SCONE_ECHO frames is negotiated by new transport
    parameters separately in each direction.  This negotiation is an
-   alternate means of allowing the sending of SCONE packets, in addition
+   alternate means of negotiating the use of SCONE packets, in addition
    to scone_supported from [SCONE].  In each direction, sending SCONE is
    authorized by the new transport parameters or scone_supported, never
    both.
