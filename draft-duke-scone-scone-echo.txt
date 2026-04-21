@@ -9,7 +9,7 @@ Expires: 23 October 2026
 
 
                    In-Band SCONE Reporting over QUIC
-                  draft-mduke-scone-scone-echo-latest
+                   draft-duke-scone-scone-echo-latest
 
 Abstract
 
@@ -27,9 +27,9 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://martinduke.github.io/scone-echo/draft-mduke-scone-scone-
+   https://martinduke.github.io/scone-echo/draft-duke-scone-scone-
    echo.html.  Status information for this document may be found at
-   https://datatracker.ietf.org/doc/draft-mduke-scone-scone-echo/.
+   https://datatracker.ietf.org/doc/draft-duke-scone-scone-echo/.
 
    Discussion of this document takes place on the Standard Communication
    with Network Elements Working Group mailing list
