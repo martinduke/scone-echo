@@ -1328,8 +1328,8 @@ scone_echo_send and scone_supported; doing so is a TRANSPORT_PARAMETER_ERROR.<a 
 <p id="section-5-3">Endpoints send scone_echo_receive to indicate the ability to process SCONE_ECHO
 frames.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <p id="section-5-4">Endpoints <span class="bcp14">MUST NOT</span> send SCONE packets unless the peer has sent either
-scone_supported or scone_echo_send. If scone_echo_send, the endpoint <span class="bcp14">MUST</span>
-also have sent scone_echo_receive.<a href="#section-5-4" class="pilcrow">¶</a></p>
+scone_supported or scone_echo_send. If the peer sent scone_echo_send, the
+endpoint <span class="bcp14">MUST</span> also have sent scone_echo_receive.<a href="#section-5-4" class="pilcrow">¶</a></p>
 <p id="section-5-5">Endpoints <span class="bcp14">MUST NOT</span> send SCONE_ECHO frames unless it has sent scone_echo_send and
 the peer has sent scone_echo_receive.<a href="#section-5-5" class="pilcrow">¶</a></p>
 <p id="section-5-6">scone_echo_send and scone_echo_receive <span class="bcp14">MUST</span> be empty. If not empty, it <span class="bcp14">MUST</span> be
