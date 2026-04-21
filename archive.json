@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-19T02:28:02.746027+00:00",
+  "timestamp": "2026-04-21T02:24:36.807412+00:00",
   "repo": "martinduke/scone-echo",
   "labels": [
     {
@@ -63,13 +63,13 @@
       "labels": [],
       "body": "Ian said the transport parameter stuff was confusing, and he's right.\r\n\r\nSo I split the transport parameters in two and totally rewrote the text.",
       "createdAt": "2026-04-16T14:46:59Z",
-      "updatedAt": "2026-04-18T02:48:01Z",
+      "updatedAt": "2026-04-20T20:44:33Z",
       "baseRepository": "martinduke/scone-echo",
       "baseRefName": "main",
       "baseRefOid": "a82ab2e937c65e0b406d612203a59bb6d6a7f75d",
       "headRepository": "martinduke/scone-echo",
       "headRefName": "two-tps",
-      "headRefOid": "fcf1beff8f95d09618a38fd1a277e39a35ad0473",
+      "headRefOid": "d0df32a3976753102d2e139e654db69340847a3f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
