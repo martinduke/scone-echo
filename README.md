@@ -4,10 +4,10 @@
 
 This is the working area for the individual Internet-Draft, "In-Band SCONE Reporting over QUIC"
 
-* [Editor's Copy](https://martinduke.github.io/scone-echo/#go.draft-mduke-scone-scone-echo.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-mduke-scone-scone-echo)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-mduke-scone-scone-echo)
-* [Compare Editor's Copy to Individual Draft](https://martinduke.github.io/scone-echo/#go.draft-mduke-scone-scone-echo.diff)
+* [Editor's Copy](https://martinduke.github.io/scone-echo/#go.draft-duke-scone-scone-echo.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-duke-scone-scone-echo)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-duke-scone-scone-echo)
+* [Compare Editor's Copy to Individual Draft](https://martinduke.github.io/scone-echo/#go.draft-duke-scone-scone-echo.diff)
 
 
 ## Contributing

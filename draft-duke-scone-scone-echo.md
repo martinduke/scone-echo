@@ -3,7 +3,7 @@ title: In-Band SCONE Reporting over QUIC
 abbrev: scone-echo
 category: std
 
-docname: draft-mduke-scone-scone-echo-latest
+docname: draft-duke-scone-scone-echo-latest
 submissiontype: IETF
 number:
 date:
@@ -18,7 +18,7 @@ venue:
   mail: "scone@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/scone"
   github: "martinduke/scone-echo"
-  latest: "https://martinduke.github.io/scone-echo/draft-mduke-scone-scone-echo.html"
+  latest: "https://martinduke.github.io/scone-echo/draft-duke-scone-scone-echo.html"
 
 author:
  -
