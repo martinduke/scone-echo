@@ -84,17 +84,16 @@ layer.
 # Overview {#overview}
 
 The use of the SCONE_ECHO frame is negotiated by new transport parameters
-separately in each direction. This negotiation is an alternate means of negotiating the
-use of SCONE packets, in addition to scone_supported from {{SCONE}}. For a given
-direction, sending SCONE is authorized by the new transport parameters or
-scone_supported, never both.
+separately in each direction. This negotiation is an alternate means of
+enabling the use of SCONE packets, in addition to scone_supported from
+{{SCONE}}. For a given direction, sending SCONE is authorized by the new
+transport parameters or scone_supported, never both.
 
 When an endpoint receives a valid SCONE packet and SCONE echo was negotiated
-in that direction, it sends a SCONE_ECHO QUIC frame in response and sends no
-signal to its local application layer.
+in that direction, it sends a SCONE_ECHO QUIC frame.
 
-Upon receipt of a valid SCONE_ECHO packet, the SCONE sender reports the bandwidth
-advice to its local application layer.
+Upon receipt of a valid SCONE_ECHO packet, the SCONE sender reports the
+bandwidth advice to its local application layer for further action.
 
 There are no changes to SCONE Network Element behavior or the SCONE packet
 format from {{SCONE}}. SCONE packets are still only valid if another QUIC packet
@@ -138,21 +137,19 @@ to a packet number in any packet number space.
 This document specifies two new transport parameters: scone_echo_send and
 scone_echo_receive.
 
-Endpoints send scone_echo_send if and only if a local application has not
-requested bandwidth advice from incoming SCONE packets (in which case an
-endpoint would instead send scone_supported from SCONE). An endpoint MUST
-NOT send both scone_echo_send and scone_supported; doing so is a
-TRANSPORT_PARAMETER_ERROR.
+Endpoints send scone_echo_send to indicate they will send SCONE_ECHO frames
+in response to valid SCONE packets. An endpoint MUST NOT send both
+scone_echo_send and scone_supported; doing so is a TRANSPORT_PARAMETER_ERROR.
 
-Endpoints send scone_echo_receive when a local application requests sending
-of SCONE packets. It indicates the ability to process SCONE_ECHO frames.
+Endpoints send scone_echo_receive to indicate the ability to process SCONE_ECHO
+frames.
 
 Endpoints MUST NOT send SCONE packets unless the peer has sent either
-scone_supported or scone_echo_send. If scone_echo_send, the endpoint MUST
-also have sent scone_echo_receive.
+scone_supported or scone_echo_send. If the peer sent scone_echo_send, the
+endpoint MUST also have sent scone_echo_receive.
 
-Endpoints MUST NOT send SCONE_ECHO frames unless the peer has sent
-scone_echo_receive.
+Endpoints MUST NOT send SCONE_ECHO frames unless it has sent scone_echo_send and
+the peer has sent scone_echo_receive.
 
 scone_echo_send and scone_echo_receive MUST be empty. If not empty, it MUST be
 treated as a connection error of type TRANSPORT_PARAMETER_ERROR.
@@ -169,6 +166,33 @@ A client that sends the scone_echo_send or scone_echo_receive transport
 parameter MUST send the SCONE Indicator as described in Section 6.1 of
 {{SCONE}}, whether or not it also sends scone_supported. Its semantic meaning
 remains unchanged.
+
+# Applicability
+
+In general, the scone_supported transport parameter from {{SCONE}} indicates
+that the sender has a local application that is willing to accept bandwidth
+advice, potentially including sending that information to the SCONE sender via
+application-layer messaging.
+
+If this is the case, a QUIC endpoint SHOULD NOT send scone_echo_send, as
+application-layer approaches can incorporate various receiver-side actions as
+well as more bandwidth-efficient signals to the sender.
+
+A QUIC implementation that does not have application-layer cooperation can send
+scone_echo_send instead to enable a purely sender-side approach.
+
+QUIC implementations will generally not send SCONE packets without a request
+from the local application. An endpoint that wishes to send SCONE packets and
+supports this specification SHOULD send scone_echo_receive in case the peer is
+unable to support an application-layer response.
+
+[Note: It is possible to revise this specification to allow the SCONE receiver
+to send both SCONE_ECHO and report to the application, thought this risks
+duplicate signaling and complicates reasoning about application response.
+Similarly, it is possible to allow a SCONE sender to signal preference for
+either SCONE_ECHO or application response, although this would further
+complicate negotiation.  Nevertheless, both are viable options if the Working
+Group desires it.]
 
 # Security Considerations
 
