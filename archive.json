@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-21T02:24:36.807412+00:00",
+  "timestamp": "2026-04-23T02:26:02.337522+00:00",
   "repo": "martinduke/scone-echo",
   "labels": [
     {
@@ -49,31 +49,74 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 3,
+      "id": "I_kwDOSCpQkc8AAAABAK7gnw",
+      "title": "Only send the most recent SCONE_ECHO",
+      "url": "https://github.com/martinduke/scone-echo/issues/3",
+      "state": "OPEN",
+      "author": "ianswett",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Similar to MAX_DATA frames in QUIC, I think it makes sense to stop sending old SCONE_ECHO values once there's a newer value available from a more recent SCONE packet.\n\nThis also avoids any potential issues with buffering SCONE_ECHO frames.",
+      "createdAt": "2026-04-22T02:49:29Z",
+      "updatedAt": "2026-04-23T02:02:22Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "martinduke",
+          "authorAssociation": "OWNER",
+          "body": "MT suggested only sending it on update, so maybe just send on update, and then only the most recent update?",
+          "createdAt": "2026-04-23T02:02:22Z",
+          "updatedAt": "2026-04-23T02:02:22Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOSCpQkc8AAAABARFARQ",
+      "title": "Privacy: Easier to harvest bandwidth readings",
+      "url": "https://github.com/martinduke/scone-echo/issues/4",
+      "state": "OPEN",
+      "author": "martinduke",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "With existing SCONE, an attacker can send scone_supported and thus (sometimes) receive SCONE packets that give it bandwidth advice from other points in the internet to itself, whether or not it actually has a supporting application. However, the peer must be configured to send SCONE.\n\nWith SCONE_ECHO, it is also possible to measure the other direction: with widely deployed SCONE_ECHO senders, an attacker can send SCONE packets and get readings outbound, again without any supporting application at either end.\n\nSo the direction of harvesting changes, and it also *easier* than it is in SCONE.",
+      "createdAt": "2026-04-23T01:52:50Z",
+      "updatedAt": "2026-04-23T01:55:02Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
       "id": "PR_kwDOSCpQkc7TAR31",
       "title": "Redesign transport parameters to be clearer",
       "url": "https://github.com/martinduke/scone-echo/pull/1",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "martinduke",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Ian said the transport parameter stuff was confusing, and he's right.\r\n\r\nSo I split the transport parameters in two and totally rewrote the text.",
       "createdAt": "2026-04-16T14:46:59Z",
-      "updatedAt": "2026-04-20T20:44:33Z",
+      "updatedAt": "2026-04-21T19:56:52Z",
       "baseRepository": "martinduke/scone-echo",
       "baseRefName": "main",
       "baseRefOid": "a82ab2e937c65e0b406d612203a59bb6d6a7f75d",
       "headRepository": "martinduke/scone-echo",
       "headRefName": "two-tps",
       "headRefOid": "d0df32a3976753102d2e139e654db69340847a3f",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2026-04-21T17:32:06Z",
+      "mergedAt": "2026-04-21T17:32:06Z",
+      "mergedBy": "martinduke",
+      "mergeCommit": {
+        "oid": "d22172ecee4e2a0cde85cee6621a27fa380b7f5b"
+      },
       "comments": [],
       "reviews": [
         {
@@ -82,7 +125,7 @@
             "abbreviatedOid": "4e2f041"
           },
           "author": "github-actions",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-04-16T14:47:27Z",
@@ -108,7 +151,7 @@
             "abbreviatedOid": "fe44dca"
           },
           "author": "github-actions",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2026-04-16T14:48:44Z",
@@ -134,7 +177,7 @@
             "abbreviatedOid": "fcf1bef"
           },
           "author": "ianswett",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "I think linking this to what the app exposes is making this confusing.  I'd prefer to focus on what happens on the wire and how it's negotiated.",
           "createdAt": "2026-04-18T01:50:35Z",
@@ -187,6 +230,95 @@
               "body": "I think linking it to app behavior is confusing.  It's better to talk about what's on the wire.  Implementations can decide when and how to expose the SCONE signal.",
               "createdAt": "2026-04-18T02:47:17Z",
               "updatedAt": "2026-04-18T02:48:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOSCpQkc73VxAe",
+          "commit": {
+            "abbreviatedOid": "fcf1bef"
+          },
+          "author": "martinduke",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-04-21T17:31:35Z",
+          "updatedAt": "2026-04-21T17:31:35Z",
+          "comments": [
+            {
+              "originalPosition": 79,
+              "body": "Offline: agreed this was OK, although it hurts some use cases.",
+              "createdAt": "2026-04-21T17:31:35Z",
+              "updatedAt": "2026-04-21T17:31:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOSCpQkc73VxNv",
+          "commit": {
+            "abbreviatedOid": "fcf1bef"
+          },
+          "author": "martinduke",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-04-21T17:31:46Z",
+          "updatedAt": "2026-04-21T17:31:46Z",
+          "comments": [
+            {
+              "originalPosition": 88,
+              "body": "Offline: agreed this was OK.",
+              "createdAt": "2026-04-21T17:31:46Z",
+              "updatedAt": "2026-04-21T17:31:46Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDOSCpQkc7UZKyj",
+      "title": "Move API talk into an applicability section",
+      "url": "https://github.com/martinduke/scone-echo/pull/2",
+      "state": "MERGED",
+      "author": "martinduke",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-04-21T18:11:37Z",
+      "updatedAt": "2026-04-21T19:56:59Z",
+      "baseRepository": "martinduke/scone-echo",
+      "baseRefName": "main",
+      "baseRefOid": "d22172ecee4e2a0cde85cee6621a27fa380b7f5b",
+      "headRepository": "martinduke/scone-echo",
+      "headRefName": "apis",
+      "headRefOid": "5d6b0511a81a9b30e58d608e0c14ae2359cb77a2",
+      "closedAt": "2026-04-21T19:50:10Z",
+      "mergedAt": "2026-04-21T19:50:10Z",
+      "mergedBy": "martinduke",
+      "mergeCommit": {
+        "oid": "6cb01b3e92524836a12305639a24f75a67f1452e"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOSCpQkc73YbXe",
+          "commit": {
+            "abbreviatedOid": "fdc158b"
+          },
+          "author": "ianswett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "Thanks, I think this is clearer.  One comment",
+          "createdAt": "2026-04-21T19:44:53Z",
+          "updatedAt": "2026-04-21T19:45:50Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "This second sentence is a bit confusing.  Which endpoint?",
+              "createdAt": "2026-04-21T19:44:54Z",
+              "updatedAt": "2026-04-21T19:45:50Z"
             }
           ]
         }
