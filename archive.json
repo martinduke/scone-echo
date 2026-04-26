@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-23T02:26:02.337522+00:00",
+  "timestamp": "2026-04-26T02:30:44.989400+00:00",
   "repo": "martinduke/scone-echo",
   "labels": [
     {
@@ -62,7 +62,7 @@
       "labels": [],
       "body": "Similar to MAX_DATA frames in QUIC, I think it makes sense to stop sending old SCONE_ECHO values once there's a newer value available from a more recent SCONE packet.\n\nThis also avoids any potential issues with buffering SCONE_ECHO frames.",
       "createdAt": "2026-04-22T02:49:29Z",
-      "updatedAt": "2026-04-23T02:02:22Z",
+      "updatedAt": "2026-04-23T02:27:55Z",
       "closedAt": null,
       "comments": [
         {
@@ -71,6 +71,13 @@
           "body": "MT suggested only sending it on update, so maybe just send on update, and then only the most recent update?",
           "createdAt": "2026-04-23T02:02:22Z",
           "updatedAt": "2026-04-23T02:02:22Z"
+        },
+        {
+          "author": "LPardue",
+          "authorAssociation": "NONE",
+          "body": "Either way, the MAX_DATA model is pretty good and for retransmissions you would want to send the most recent sample ",
+          "createdAt": "2026-04-23T02:27:55Z",
+          "updatedAt": "2026-04-23T02:27:55Z"
         }
       ]
     },
