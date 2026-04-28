@@ -1313,8 +1313,8 @@ frames.<a href="#section-4-6" class="pilcrow">¶</a></p>
 because a succesfully decrypted 1-RTT packet indicates all transport
 parameters have been verified. However, the Packet Number field can refer
 to a packet number in any packet number space.<a href="#section-4-7" class="pilcrow">¶</a></p>
-<p id="section-4-8">When a SCONE packet arrives, any SCONE_ECHO frame scheduled for retransmission
-is canceled, in favor of a SCONE_ECHO frame with the new value.<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-8">The arrival of a SCONE packet triggers a new SCONE_ECHO frame and cancels
+the retransmission of any previous SCONE_ECHO frame.<a href="#section-4-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="negotiating-scone-echo">
