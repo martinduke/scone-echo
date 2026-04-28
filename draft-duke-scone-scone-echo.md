@@ -215,6 +215,10 @@ This document envisions SCONE Echo being enabled by default in some QUIC
 implementations. This might actually obscure application fingerprinting, but it
 also further distances consent from the user.
 
+SCONE Echo envisions a widely deployed network of endpoints willing to send
+network bandwidth advice to the sender. This makes it much easier for a
+observer to obtain a map of bandwidth advice from its location.
+
 # IANA Considerations
 
 ## scone_echo_send Transport Parameter
