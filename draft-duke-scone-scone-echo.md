@@ -133,7 +133,10 @@ parameters have been verified. However, the Packet Number field can refer
 to a packet number in any packet number space.
 
 The arrival of a SCONE packet triggers a new SCONE_ECHO frame and cancels
-the retransmission of any previous SCONE_ECHO frame.
+the retransmission of any previous SCONE_ECHO frame. Implementations MAY
+store the most recent value if a SCONE_ECHO frame is already in flight and wait
+until it is acknowledged or lost before sending the latest value to naturally rate
+limit SCONE_ECHO to approximately once per round trip.
 
 # Negotiating SCONE Echo
 
