@@ -132,6 +132,9 @@ because a succesfully decrypted 1-RTT packet indicates all transport
 parameters have been verified. However, the Packet Number field can refer
 to a packet number in any packet number space.
 
+When a SCONE packet arrives, any SCONE_ECHO frame scheduled for retransmission
+is canceled, in favor of a SCONE_ECHO frame with the new value.
+
 # Negotiating SCONE Echo
 
 This document specifies two new transport parameters: scone_echo_send and
