@@ -195,7 +195,8 @@ Table of Contents
    Implementations MAY store the most recent value if a SCONE_ECHO frame
    is already in flight and wait until it is acknowledged or lost before
    sending the latest value to naturally rate limit SCONE_ECHO to
-   approximately once per round trip.
+   approximately once per round trip.  As a result, SCONE senders cannot
+   expect one SCONE_ECHO frame per SCONE packet sent.
 
 5.  Negotiating SCONE Echo
 
