@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-26T02:30:44.989400+00:00",
+  "timestamp": "2026-04-30T02:41:43.344391+00:00",
   "repo": "martinduke/scone-echo",
   "labels": [
     {
@@ -55,15 +55,15 @@
       "id": "I_kwDOSCpQkc8AAAABAK7gnw",
       "title": "Only send the most recent SCONE_ECHO",
       "url": "https://github.com/martinduke/scone-echo/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "ianswett",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Similar to MAX_DATA frames in QUIC, I think it makes sense to stop sending old SCONE_ECHO values once there's a newer value available from a more recent SCONE packet.\n\nThis also avoids any potential issues with buffering SCONE_ECHO frames.",
       "createdAt": "2026-04-22T02:49:29Z",
-      "updatedAt": "2026-04-23T02:27:55Z",
-      "closedAt": null,
+      "updatedAt": "2026-04-28T14:21:52Z",
+      "closedAt": "2026-04-28T14:21:52Z",
       "comments": [
         {
           "author": "martinduke",
@@ -78,6 +78,13 @@
           "body": "Either way, the MAX_DATA model is pretty good and for retransmissions you would want to send the most recent sample ",
           "createdAt": "2026-04-23T02:27:55Z",
           "updatedAt": "2026-04-23T02:27:55Z"
+        },
+        {
+          "author": "martinduke",
+          "authorAssociation": "OWNER",
+          "body": "Opened #6 for MT's suggestion, which is a bit more aggressive than what's necessary to avoid DoS follies.",
+          "createdAt": "2026-04-28T03:27:36Z",
+          "updatedAt": "2026-04-28T03:27:36Z"
         }
       ]
     },
@@ -86,14 +93,30 @@
       "id": "I_kwDOSCpQkc8AAAABARFARQ",
       "title": "Privacy: Easier to harvest bandwidth readings",
       "url": "https://github.com/martinduke/scone-echo/issues/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "martinduke",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "With existing SCONE, an attacker can send scone_supported and thus (sometimes) receive SCONE packets that give it bandwidth advice from other points in the internet to itself, whether or not it actually has a supporting application. However, the peer must be configured to send SCONE.\n\nWith SCONE_ECHO, it is also possible to measure the other direction: with widely deployed SCONE_ECHO senders, an attacker can send SCONE packets and get readings outbound, again without any supporting application at either end.\n\nSo the direction of harvesting changes, and it also *easier* than it is in SCONE.",
       "createdAt": "2026-04-23T01:52:50Z",
-      "updatedAt": "2026-04-23T01:55:02Z",
+      "updatedAt": "2026-04-28T15:47:59Z",
+      "closedAt": "2026-04-28T15:47:59Z",
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOSCpQkc8AAAABArTqHw",
+      "title": "ECHO only on update?",
+      "url": "https://github.com/martinduke/scone-echo/issues/6",
+      "state": "OPEN",
+      "author": "martinduke",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "There is one SCONE_ECHO frame per SCONE packet.\n\nInstead, the receiver could only send SCONE_ECHO when the value changes. My instinct is to keep the ECHO logic as dumb as possible (maybe the repeat signal is useful?), and am concerned about reordering and other effects. But I don't feel strongly about it.",
+      "createdAt": "2026-04-28T03:26:52Z",
+      "updatedAt": "2026-04-28T03:26:52Z",
       "closedAt": null,
       "comments": []
     }
@@ -330,6 +353,111 @@
           ]
         }
       ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOSCpQkc7WMMRN",
+      "title": "Only one pending SCONE_ECHO",
+      "url": "https://github.com/martinduke/scone-echo/pull/5",
+      "state": "MERGED",
+      "author": "martinduke",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #3",
+      "createdAt": "2026-04-28T03:21:39Z",
+      "updatedAt": "2026-04-28T14:21:51Z",
+      "baseRepository": "martinduke/scone-echo",
+      "baseRefName": "main",
+      "baseRefOid": "e6c72779ebc54dda857bb6958ff47efe5fae0865",
+      "headRepository": "martinduke/scone-echo",
+      "headRefName": "repeats",
+      "headRefOid": "ee9eec625417750e9aabcd9ca8a70a4a2a5478cc",
+      "closedAt": "2026-04-28T14:21:51Z",
+      "mergedAt": "2026-04-28T14:21:51Z",
+      "mergedBy": "martinduke",
+      "mergeCommit": {
+        "oid": "32d7847f0a8114790da627a23330be5c8a370529"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOSCpQkc75seDF",
+          "commit": {
+            "abbreviatedOid": "5b97f53"
+          },
+          "author": "ianswett",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2026-04-28T13:27:14Z",
+          "updatedAt": "2026-04-28T13:27:24Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I'd add this as well, unless others don't like it.\n\n```suggestion\nthe retransmission of any previous SCONE_ECHO frame. Implementations MAY\nstore the most recent value if a SCONE_ECHO frame is already in flight and wait\nuntil it is acknowledged or lost before sending the latest value to naturally rate\nlimit SCONE_ECHO to approximately once per round trip.\n```",
+              "createdAt": "2026-04-28T13:27:14Z",
+              "updatedAt": "2026-04-28T13:27:24Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOSCpQkc7WYBdm",
+      "title": "added text",
+      "url": "https://github.com/martinduke/scone-echo/pull/7",
+      "state": "MERGED",
+      "author": "martinduke",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-04-28T14:35:50Z",
+      "updatedAt": "2026-04-28T14:36:03Z",
+      "baseRepository": "martinduke/scone-echo",
+      "baseRefName": "main",
+      "baseRefOid": "32d7847f0a8114790da627a23330be5c8a370529",
+      "headRepository": "martinduke/scone-echo",
+      "headRefName": "repeats",
+      "headRefOid": "367e12673b3bc3676918bf1ed78ba34518ca51a6",
+      "closedAt": "2026-04-28T14:36:03Z",
+      "mergedAt": "2026-04-28T14:36:03Z",
+      "mergedBy": "martinduke",
+      "mergeCommit": {
+        "oid": "3d8d8e0e23e0e3c99cf00ff46b6d203dece88bf0"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOSCpQkc7WYI81",
+      "title": "Mention harvesting",
+      "url": "https://github.com/martinduke/scone-echo/pull/8",
+      "state": "MERGED",
+      "author": "martinduke",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #4",
+      "createdAt": "2026-04-28T14:40:56Z",
+      "updatedAt": "2026-04-28T15:47:58Z",
+      "baseRepository": "martinduke/scone-echo",
+      "baseRefName": "main",
+      "baseRefOid": "3d8d8e0e23e0e3c99cf00ff46b6d203dece88bf0",
+      "headRepository": "martinduke/scone-echo",
+      "headRefName": "privacy",
+      "headRefOid": "a5c1f5c23e5129a82ce0cd45cdb1927d674dab75",
+      "closedAt": "2026-04-28T15:47:57Z",
+      "mergedAt": "2026-04-28T15:47:57Z",
+      "mergedBy": "martinduke",
+      "mergeCommit": {
+        "oid": "0f636a37170993dd99e811f83cac0668be048406"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
