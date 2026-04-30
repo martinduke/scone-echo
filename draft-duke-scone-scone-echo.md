@@ -49,7 +49,7 @@ cases. There are no changes in the interaction with SCONE Network Elements.
 
 The SCONE protocol ({{SCONE}}) allows networks to provide bandwidth guidance to
 endpoints. Senders prepend a SCONE header to QUIC ({{QUIC}}) packets that
-include a 6-bit bandwidth field. Network elements can update this field. The
+include a 7-bit bandwidth field. Network elements can update this field. The
 receiver of SCONE packets reports the received value to the application. The
 application can use this information to adjust the bit rate, either by directly
 reporting the value back to the sender at the application layer, or by using it
@@ -101,22 +101,22 @@ in the UDP datagram is successfully decrypted.
 
 # The SCONE_ECHO Frame {#scone-echo}
 
-An endpoint uses the SCONE_ECHO frame to return the 6-bit value encoded in a
+An endpoint uses the SCONE_ECHO frame to return the 7-bit value encoded in a
 SCONE packet. The conditions for sending it are described in {{overview}}.
 
 ~~~
 SCONE_ECHO Frame {
   Type (i) = 0xff005345,
   Packet Number (i),
-  Zeros (2),
-  Throughput Advice (6),
+  Zero (1),
+  Throughput Advice (7),
 }
 ~~~
 
 Packet Number: the full (62-bit) packet number of the first successfully
 decrypted QUIC packet in the UDP datagram that contained the SCONE header.
 
-Zeros: These two bits MUST be zero and MUST be ignored on receipt.
+Zero: This bit MUST be zero and MUST be ignored on receipt.
 
 Throughput Advice: The Rate Signal in the SCONE packet as encoded in Section
 5 of {{SCONE}}.
