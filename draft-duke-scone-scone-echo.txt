@@ -4,8 +4,8 @@
 
 Standard Communication with Network Elements                     M. Duke
 Internet-Draft                                                    Google
-Intended status: Standards Track                           30 April 2026
-Expires: 1 November 2026
+Intended status: Standards Track                       28 September 2026
+Expires: 1 April 2027
 
 
                    In-Band SCONE Reporting over QUIC
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 November 2026.
+   This Internet-Draft will expire on 1 April 2027.
 
 Copyright Notice
 
@@ -269,6 +269,21 @@ Table of Contents
 
    The security considerations in Section 9 of [SCONE] apply.
 
+   The base SCONE protocol mitigates incorrectly modified advice by
+   allowing the receiving application to ignore it.  In practice, a
+   client could make this decision using contextual metrics (e.g.
+   playback metrics and buffer health in a video player) or by probing
+   above the advised rate to assess whether the advice was appropriate.
+
+   A sending application that changes its behavior based on echoed SCONE
+   advice should consider that the receiving client may be unaware that
+   such advice has been applied and/or be unable to probe above the
+   advised rate.  Implementations should consider appropriate mechanisms
+   that allow the accuracy of the advice to be assessed, such as client-
+   reported metrics, applying the advice in a way that preserves the
+   client's ability to probe above the advised rate, or itself probing
+   to verify the advice.
+
 8.  Privacy Considerations
 
    Section 10 of [SCONE] describes the potential privacy exposure of
@@ -374,9 +389,9 @@ Table of Contents
    [SCONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
               Ihlar, "Standard Communication with Network Elements
               (SCONE) Protocol", Work in Progress, Internet-Draft,
-              draft-ietf-scone-protocol-04, 14 December 2025,
+              draft-ietf-scone-protocol-09, 24 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-scone-
-              protocol-04>.
+              protocol-09>.
 
 10.2.  Informative References
 
