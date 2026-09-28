@@ -4,8 +4,8 @@
 
 Standard Communication with Network Elements                     M. Duke
 Internet-Draft                                                    Google
-Intended status: Standards Track                           28 April 2026
-Expires: 30 October 2026
+Intended status: Standards Track                       28 September 2026
+Expires: 1 April 2027
 
 
                    In-Band SCONE Reporting over QUIC
@@ -55,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 October 2026.
+   This Internet-Draft will expire on 1 April 2027.
 
 Copyright Notice
 
@@ -96,7 +96,7 @@ Table of Contents
 
    The SCONE protocol ([SCONE]) allows networks to provide bandwidth
    guidance to endpoints.  Senders prepend a SCONE header to QUIC
-   ([QUIC]) packets that include a 6-bit bandwidth field.  Network
+   ([QUIC]) packets that include a 7-bit bandwidth field.  Network
    elements can update this field.  The receiver of SCONE packets
    reports the received value to the application.  The application can
    use this information to adjust the bit rate, either by directly
@@ -159,22 +159,22 @@ Table of Contents
 
 4.  The SCONE_ECHO Frame
 
-   An endpoint uses the SCONE_ECHO frame to return the 6-bit value
+   An endpoint uses the SCONE_ECHO frame to return the 7-bit value
    encoded in a SCONE packet.  The conditions for sending it are
    described in Section 3.
 
    SCONE_ECHO Frame {
      Type (i) = 0xff005345,
      Packet Number (i),
-     Zeros (2),
-     Throughput Advice (6),
+     Zero (1),
+     Throughput Advice (7),
    }
 
    Packet Number: the full (62-bit) packet number of the first
    successfully decrypted QUIC packet in the UDP datagram that contained
    the SCONE header.
 
-   Zeros: These two bits MUST be zero and MUST be ignored on receipt.
+   Zero: This bit MUST be zero and MUST be ignored on receipt.
 
    Throughput Advice: The Rate Signal in the SCONE packet as encoded in
    Section 5 of [SCONE].
@@ -268,6 +268,21 @@ Table of Contents
 7.  Security Considerations
 
    The security considerations in Section 9 of [SCONE] apply.
+
+   The base SCONE protocol mitigates incorrectly modified advice by
+   allowing the receiving application to ignore it.  In practice, a
+   client could make this decision using contextual metrics (e.g.
+   playback metrics and buffer health in a video player) or by probing
+   above the advised rate to assess whether the advice was appropriate.
+
+   A sending application that changes its behavior based on echoed SCONE
+   advice should consider that the receiving client may be unaware that
+   such advice has been applied and/or be unable to probe above the
+   advised rate.  Implementations should consider appropriate mechanisms
+   that allow the accuracy of the advice to be assessed, such as client-
+   reported metrics, applying the advice in a way that preserves the
+   client's ability to probe above the advised rate, or itself probing
+   to verify the advice.
 
 8.  Privacy Considerations
 
@@ -374,9 +389,9 @@ Table of Contents
    [SCONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
               Ihlar, "Standard Communication with Network Elements
               (SCONE) Protocol", Work in Progress, Internet-Draft,
-              draft-ietf-scone-protocol-04, 14 December 2025,
+              draft-ietf-scone-protocol-09, 24 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-scone-
-              protocol-04>.
+              protocol-09>.
 
 10.2.  Informative References
 
