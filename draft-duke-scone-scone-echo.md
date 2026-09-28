@@ -205,6 +205,20 @@ Group desires it.]
 
 The security considerations in Section 9 of {{SCONE}} apply.
 
+The base SCONE protocol mitigates incorrectly modified advice by allowing the
+receiving application to ignore it. In practice, a client could make this
+decision using contextual metrics (e.g. playback metrics and buffer health in a
+video player) or by probing above the advised rate to assess whether the advice
+was appropriate.
+
+A sending application that changes its behavior based on echoed SCONE advice
+should consider that the receiving client may be unaware that such advice has
+been applied and/or be unable to probe above the advised rate. Implementations
+should consider appropriate mechanisms that allow the accuracy of the advice to
+be assessed, such as client-reported metrics, applying the advice in a way
+that preserves the client's ability to probe above the advised rate, or itself
+probing to verify the advice.
+
 # Privacy Considerations
 
 Section 10 of {{SCONE}} describes the potential privacy exposure of using SCONE.
