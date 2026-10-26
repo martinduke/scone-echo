@@ -89,11 +89,12 @@ enabling the use of SCONE packets, in addition to scone_supported from
 {{SCONE}}. For a given direction, sending SCONE is authorized by the new
 transport parameters or scone_supported, never both.
 
-When an endpoint receives a valid SCONE packet and SCONE echo was negotiated
-in that direction, it sends a SCONE_ECHO QUIC frame.
+When an endpoint receives a valid SCONE packet, and SCONE echo was negotiated
+in that direction, and the rate signal has changed, it sends a SCONE_ECHO QUIC
+frame.
 
 Upon receipt of a valid SCONE_ECHO packet, the SCONE sender reports the
-bandwidth advice to its local application layer for further action.
+rate signal to its local application layer for further action.
 
 There are no changes to SCONE Network Element behavior or the SCONE packet
 format from {{SCONE}}. SCONE packets are still only valid if another QUIC packet
@@ -106,10 +107,10 @@ SCONE packet. The conditions for sending it are described in {{overview}}.
 
 ~~~
 SCONE_ECHO Frame {
-  Type (i) = 0xff005345,
+  Type (i) = 0x3d6948d2,
   Packet Number (i),
   Zero (1),
-  Throughput Advice (7),
+  Rate Signal (7),
 }
 ~~~
 
@@ -118,7 +119,7 @@ decrypted QUIC packet in the UDP datagram that contained the SCONE header.
 
 Zero: This bit MUST be zero and MUST be ignored on receipt.
 
-Throughput Advice: The Rate Signal in the SCONE packet as encoded in Section
+Rate Signal: The Rate Signal in the SCONE packet as encoded in Section
 5 of {{SCONE}}.
 
 A SCONE sender SHOULD keep track of the Packet Numbers to which it prepended
@@ -127,17 +128,14 @@ a record of prepending SCONE to that packet number. It might not store such
 numbers when it hits storage limitations or receives duplicate SCONE_ECHO
 frames.
 
-SCONE_ECHO frames are retransmittable and MUST only appear in 1-RTT packets,
+SCONE_ECHO frames are not retransmittable and SHOULD be held until the
+receiver is ready to send a packet. They MUST only appear in 1-RTT packets,
 because a succesfully decrypted 1-RTT packet indicates all transport
 parameters have been verified. However, the Packet Number field can refer
 to a packet number in any packet number space.
 
-The arrival of a SCONE packet triggers a new SCONE_ECHO frame and cancels
-the retransmission of any previous SCONE_ECHO frame. Implementations MAY
-store the most recent value if a SCONE_ECHO frame is already in flight and wait
-until it is acknowledged or lost before sending the latest value to naturally
-rate limit SCONE_ECHO to approximately once per round trip. As a result, SCONE
-senders cannot expect one SCONE_ECHO frame per SCONE packet sent.
+SCONE senders can use the ACK for packets that were coalesced with a SCONE
+packet as an indication the SCONE packet was received. 
 
 # Negotiating SCONE Echo
 
@@ -254,9 +252,6 @@ Provisional
 Specification:
 This document
 
-Date:
-This date
-
 Change Controller:
 IETF (iesg@ietf.org)
 
@@ -285,9 +280,6 @@ Provisional
 Specification:
 This document
 
-Date:
-This date
-
 Change Controller:
 IETF (iesg@ietf.org)
 
@@ -308,8 +300,6 @@ name: SCONE_ECHO
 Status: Provisional
 
 Specification: {{scone-echo}}
-
-Date: This date
 
 Change Controller: IETF (iesg@ietf.org)
 
