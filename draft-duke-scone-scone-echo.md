@@ -187,9 +187,9 @@ A QUIC implementation that does not have application-layer cooperation can send
 scone_echo_send instead to enable a purely sender-side approach.
 
 QUIC implementations will generally not send SCONE packets without a request
-from the local application. An endpoint that wishes to send SCONE packets and
-supports this specification SHOULD send scone_echo_receive in case the peer is
-unable to support an application-layer response.
+from the local application. An endpoint that wishes to send SCONE packets can
+send scone_echo_receive in case the peer is unable to support an application-
+layer response.
 
 [Note: It is possible to revise this specification to allow the SCONE receiver
 to send both SCONE_ECHO and report to the application, thought this risks
