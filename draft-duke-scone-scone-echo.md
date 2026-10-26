@@ -135,7 +135,7 @@ parameters have been verified. However, the Packet Number field can refer
 to a packet number in any packet number space.
 
 SCONE senders can use the ACK for packets that were coalesced with a SCONE
-packet as an indication the SCONE packet was received. 
+packet as an indication the SCONE packet was received.
 
 # Negotiating SCONE Echo
 
