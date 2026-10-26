@@ -89,7 +89,7 @@ enabling the use of SCONE packets, in addition to scone_supported from
 {{SCONE}}. For a given direction, sending SCONE is authorized by the new
 transport parameters or scone_supported, never both.
 
-When an endpoint receives a valid SCONE packet, and SCONE echo was negotiated
+When an endpoint receives a valid SCONE packet, SCONE_ECHO was negotiated
 in that direction, and the rate signal has changed, it sends a SCONE_ECHO QUIC
 frame.
 
