@@ -108,11 +108,16 @@ SCONE packet. The conditions for sending it are described in {{overview}}.
 ~~~
 SCONE_ECHO Frame {
   Type (i) = 0x3d6948d2,
+  Path Identifier (i),
   Packet Number (i),
   Zero (1),
   Rate Signal (7),
 }
 ~~~
+
+Path Identifier: The path ID of the path on which the SCONE packet was received,
+as defined in {{!I-D.ietf-quic-multipath}}. If that extension is not in use, the
+Path Identifier MUST be zero.
 
 Packet Number: the full (62-bit) packet number of the first successfully
 decrypted QUIC packet in the UDP datagram that contained the SCONE header.
