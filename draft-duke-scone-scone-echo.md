@@ -115,9 +115,9 @@ SCONE_ECHO Frame {
 }
 ~~~
 
-Path Identifier: The path ID of the path on which the SCONE packet was
-received, as defined in {{!draft-ietf-quic-multipath}}. If that extension is
-not use, the Path Identifier MUST be zero.
+Path Identifier: The path ID of the path on which the SCONE packet was received,
+as defined in {{!I-D.ietf-quic-multipath}}. If that extension is not in use, the
+Path Identifier MUST be zero.
 
 Packet Number: the full (62-bit) packet number of the first successfully
 decrypted QUIC packet in the UDP datagram that contained the SCONE header.
